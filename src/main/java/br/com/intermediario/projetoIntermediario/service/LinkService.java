@@ -28,25 +28,19 @@ public class LinkService {
                 in.close();
                 return conteudo.toString();
             } else {
-                return "Erro ao acessar a API: Código de resposta " + responseCode;
+                throw new Exception("Erro ao acessar a API: Código de resposta " + responseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return "Erro ao encurtar o link: " + e.getMessage();
+            throw new Exception("Erro ao encurtar o link: " + e.getMessage());
         }
     }
 
 
     public boolean isUrlValid(String urlString) {
         try {
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("HEAD");
-            connection.setConnectTimeout(3000);
-            connection.setReadTimeout(3000);
-            int responseCode = connection.getResponseCode();
-
-            return (responseCode == HttpURLConnection.HTTP_OK);
+            new URL(urlString).toURI();  // Valida a sintaxe da URL
+            return true;
         } catch (Exception e) {
             return false;
         }

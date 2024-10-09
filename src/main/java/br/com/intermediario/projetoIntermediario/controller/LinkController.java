@@ -4,6 +4,7 @@ import br.com.intermediario.projetoIntermediario.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,9 @@ public class LinkController {
         }
 
         try {
+
+            desabilitarCtrl.desabilitarVerificacaoSSL();
+
             String urlEncurtada = linkService.encurtarLink(urlOriginal);
 
             Map<String, String> response = new HashMap<>();
